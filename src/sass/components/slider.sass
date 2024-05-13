@@ -1,0 +1,65 @@
+.slider
+    grid-area: slider
+    height: 100%
+    overflow: hidden
+    cursor: grab
+    &--grabbing
+        cursor: grabbing
+    &--grabbing &__wrapp
+        pointer-events: none    
+    &__wrapp
+        display: inline-flex
+        flex-direction: column
+        flex-wrap: wrap
+        gap: 40px
+        height: 100%
+        &--swipe
+            transition: transform .6s 0s
+    &__btn
+        font-size: 24px
+        color: $white
+        background-color: $blue
+        display: inline-block
+        border: none
+        padding: 16px 32px
+        cursor: pointer
+        transition: opacity .6s 0s
+        &--disable
+            background-color: $black
+        &--prev   
+            padding-right: 16px
+            border-top-left-radius: 50px
+            border-bottom-left-radius: 50px
+        &--next   
+            padding-left: 16px
+            border-top-right-radius: 50px
+            border-bottom-right-radius: 50px
+        &:hover
+            opacity: .6
+        &-wrapp
+            grid-area: btn-slider
+            display: inline-flex
+
+.slide
+    background-color: $orange
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 240px
+    height: 31vh
+    border-radius: 50px
+    &:nth-child(2n),
+    &:nth-child(3n),
+    &:nth-child(6n),
+    &:nth-child(8n)
+        height: 23vh
+    &:nth-child(4n),
+    &:nth-child(5n),
+    &:nth-child(7n)
+        height: 31vh
+    &:nth-child(9n),
+    &:nth-child(12n)
+        height: 60vh
+    &:nth-child(10n),
+    &:nth-child(11n)
+        height: 19vh

@@ -1,0 +1,23 @@
+@import root/color.sass
+
+body
+    color: $white
+    background-color: $black
+    display: grid
+    grid-auto-rows: 1fr
+    grid-template-columns: 360px 1fr
+    grid-template-rows: 1fr 60px
+    gap: 40px 40px
+    grid-template-areas: "title slider" "btn-slider slider"
+    height: 100vh
+    margin: 0
+    padding-top: 20px
+    padding-left: 20px
+    padding-right: 0
+    padding-bottom: 20px
+    box-sizing: border-box
+
+.title
+    grid-area: title
+
+@import components/slider.sass
