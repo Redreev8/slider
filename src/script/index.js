@@ -20,20 +20,21 @@ class Slider {
         this.prevBtn = prevBtn
     }
 
-    mousedown = (e) => {
+    start = (e) => {
         this.wrapp.classList.remove(this.classNames.swipe)
         this.slider.classList.add(this.classNames.grabbing)
         this.isDown = true
     }
     
-    mousemove = (e) => {
+    move = (e) => {
         if (!this.isDown) return
+        const x = e.touches ? e.touches[0].clientX : e.clientX
 
-        this.pX > e.clientX || this.pX === 0 ? this.translate += this.speed : this.translate -= this.speed
-        this.pX = e.clientX
+        this.pX > x || this.pX === 0 ? this.translate += this.speed : this.translate -= this.speed
+        this.pX = x
     }
     
-    mouseup = (e) => {
+    end = (e) => {
         this.slider.classList.remove(this.classNames.grabbing)
         this.isDown = false
     }
@@ -57,9 +58,12 @@ class Slider {
     set slider(slider) {
         this._slider = slider
         this.wrapp = slider.querySelector(this.classNames.wrapp)
-        slider.addEventListener('mousedown', this.mousedown)
-        slider.addEventListener('mousemove', this.mousemove)
-        slider.addEventListener('mouseup', this.mouseup)
+        slider.addEventListener('mousedown', this.start)
+        slider.addEventListener('mousemove', this.move)
+        slider.addEventListener('mouseup', this.end)
+        slider.addEventListener("touchstart", this.start);
+        slider.addEventListener("touchmove", this.move);
+        slider.addEventListener("touchend", this.end);
     }
 
     get nextBtn() {
@@ -90,7 +94,6 @@ class Slider {
         this.endX = this.wrapp.scrollWidth - this.wrapp.clientWidth
         this.nextBtn && this.nextBtn.classList.remove(this.classNames.disable) 
         this.prevBtn && this.prevBtn.classList.remove(this.classNames.disable) 
-        console.log(x);
         if (x >= this.endX && this.endX !== 0) {
             this.prevBtn && this.nextBtn.classList.add(this.classNames.disable) 
             x = this.endX
@@ -106,10 +109,10 @@ class Slider {
 
 new Slider({
     slider: document.querySelector('.slider'),
-    translate: 7980,
+    translate: 0,
     gap: 40,
     widthSlide: 240,
-    speed: 8,
+    speed: 12,
     nextBtn: document.querySelector('.slider__btn--next'),
     prevBtn: document.querySelector('.slider__btn--prev')
 })
